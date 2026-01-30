@@ -3,19 +3,53 @@
 Prévision avec saisonnalités/tendances (pratique).
 
 ## Idée clé
-- TODO
+
+**Prophet** (Facebook) : Décomposition **additive** `y(t) = trend + seasonal + holidays + error`. Robuste, pratique, gère missing data.
+
+## Exemples concrets
+
+```python
+from prophet import Prophet
+import pandas as pd
+
+# Data: 'ds' (date), 'y' (value)
+df = pd.DataFrame({'ds': dates, 'y': values})
+
+model = Prophet()
+model.fit(df)
+
+# Forecast
+future = model.make_future_dataframe(periods=365)
+forecast = model.predict(future)
+
+# Plot
+model.plot(forecast)
+model.plot_components(forecast)  # Trend, weekly, yearly
+```
 
 ## Quand l'utiliser
-- TODO
+
+- ✅ **Business forecasting** : Sales, traffic
+- ✅ **Strong seasonality** : Daily, weekly, yearly
+- ✅ **Holidays** : Black Friday, etc.
+- ✅ **Missing data** : Handles well
 
 ## Forces
-- TODO
+
+✅ **Easy to use** : Minimal tuning  
+✅ **Interpretable** : Decomposable  
+✅ **Robust** : Outliers, missing data
 
 ## Limites
-- TODO
+
+❌ **Univariate** : No covariates  
+❌ **Additive assumption**
 
 ## Variantes / liens
-- TODO
+
+**NeuralProphet** : Neural version
 
 ## Références
-- TODO
+
+- **Prophet** : Taylor & Letham, 2017
+- **Docs** : [facebook.github.io/prophet](https://facebook.github.io/prophet/)
